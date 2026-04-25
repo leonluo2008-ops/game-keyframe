@@ -259,12 +259,35 @@ python3 scripts/seedance.py create \
 
 ### 默认参数（与 Seedance2-skill 保持一致）
 
+- 模型：`doubao-seedance-2-0-fast-260128`（Seedance 2.0 Fast，速度优先）
 - 时长：4秒
 - 画幅：有图时用 `adaptive`（自适应首帧图比例）
 - 角色全身居中
 - 纯白背景
 - 无道具
 - 不生成音频
+
+### 备选模型
+
+如需使用 Seedance 2.0（非 Fast 版），添加 `--model` 参数：
+
+| 模型 | Model ID | 说明 |
+|------|---------|------|
+| Seedance 2.0 Fast（默认） | `doubao-seedance-2-0-fast-260128` | 速度优先 |
+| Seedance 2.0 | `doubao-seedance-2-0-260128` | 质量优先，速度较慢 |
+| Seedance 1.5 Pro | `doubao-seedance-1-5-pro-251215` | 回退选项 |
+
+```bash
+# 使用 Seedance 2.0（非 Fast）生成
+python3 scripts/seedance.py create \
+  --image <首帧图路径> \
+  --prompt "<工段3输出的提示词文本>" \
+  --model doubao-seedance-2-0-260128 \
+  --ratio adaptive \
+  --duration 4 \
+  --generate-audio false \
+  --wait
+```
 
 ## 各工段串联流程
 
@@ -285,7 +308,7 @@ python3 scripts/seedance.py create \
     ↓
 工段3（视频提示词）= 首帧图 + 动作描述 → 输出提示词文本（Seedance2-skill 标准结构）
     ↓（用户要求时）
-工段3续（视频生成）= 提示词文本 → Seedance2-skill（doubao-seedance-2-0-260128）→ 视频
+工段3续（视频生成）= 提示词文本 → Seedance2-skill（doubao-seedance-2-0-fast-260128）→ 视频
 ```
 
 ---
